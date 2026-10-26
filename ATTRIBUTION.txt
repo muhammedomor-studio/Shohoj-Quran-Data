@@ -1,0 +1,9 @@
+Tanzil Quran Text — attribution and use terms
+
+Source: https://tanzil.net/
+Download: https://tanzil.net/download
+Text license/terms: https://tanzil.net/docs/Text_License
+
+Tanzil permits verbatim copying/distribution of the Quran text; the text must not be changed. Clearly identify Tanzil as the source and provide a link to tanzil.net so users can follow updates. Keep the original copyright/license notice with the distributed text.
+
+IMPORTANT: This ZIP currently contains metadata and a quran-ar.json TEMPLATE only. It does NOT contain the Quran's 6,236 Arabic verses. Do not publish it as complete Quran data. Replace quran-ar.json with complete, verified text in the schema described in README.md, without altering the Quran text.

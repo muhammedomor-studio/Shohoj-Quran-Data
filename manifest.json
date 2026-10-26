@@ -1,0 +1,14 @@
+{
+  "app": "Shohoj Quran",
+  "schema_version": 1,
+  "data_version": "0.1.0-template",
+  "updated_at": "2026-10-26",
+  "source": "Tanzil Project (Arabic Quran text must be copied verbatim; do not edit)",
+  "files": {
+    "quran_ar": {
+      "url": "quran-ar.json",
+      "sha256": ""
+    }
+  },
+  "notice": "Template only. quran-ar.json must contain the complete verified 6236 ayahs before app download can succeed."
+}
