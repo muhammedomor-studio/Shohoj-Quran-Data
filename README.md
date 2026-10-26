@@ -1,39 +1,41 @@
-# Shohoj Quran — separate data repository package
+# সহজ কোরআন (Shohoj Quran) — Android project
 
-Upload the contents of this folder to a separate GitHub repository named exactly `Shohoj-Quran-Data` under `muhammedomor-studio`, on the `main` branch:
+এই প্রজেক্টে ডেটা GitHub-এ আলাদা করে হোস্ট করতে হয় না। অ্যাপটি অনলাইনে Al Quran Cloud-এর public REST API ব্যবহার করে:
 
-`https://github.com/muhammedomor-studio/Shohoj-Quran-Data`
+- Surah metadata: `https://api.alquran.cloud/v1/surah`
+- Arabic + Bengali translation: `https://api.alquran.cloud/v1/surah/{number}/editions/quran-uthmani,bn.bengali`
+- Arabic fallback: `https://api.alquran.cloud/v1/surah/{number}`
+- Mishary Alafasy surah audio: `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/{number}.mp3`
 
-The connected Android app fetches this fixed manifest URL:
-`https://raw.githubusercontent.com/muhammedomor-studio/Shohoj-Quran-Data/main/manifest.json`
+API docs: https://alquran.cloud/api
+Audio CDN docs: https://alquran.cloud/cdn
 
-## Important status
-This is a repository scaffold, not complete Quran text. The bundled `quran-ar.json` is deliberately empty for every surah because the source download could not be retrieved in this environment. The app validates that the file contains all 114 surahs and exactly 6,236 non-empty ayahs, so it will refuse this placeholder. Do not mistake it for usable Quran text.
+## Features
 
-## Required quran-ar.json schema
-Use a complete, verified Arabic text source, preserve the exact text verbatim, and ensure all 6,236 ayahs are included in surah order. Example shape (example text is only a schema illustration, not Quran data):
+- Bengali UI and custom Shohoj Quran logo/splash screen
+- Home, Quran, Bookmarks, Settings and Donation pages
+- Light/dark theme saved on device
+- Surah search and animated up/down scroll controls
+- Surah reader retrieves Quran text online and caches opened surah JSON in app-private storage
+- Mishary Alafasy audio streaming
+- Donation guidance page (does not collect money)
+- GitHub source-code link in Settings
+- GitHub Actions workflow builds a debug APK
 
-```json
-{
-  "schema_version": 1,
-  "source": "Tanzil Project",
-  "surahs": [
-    { "number": 1, "ayahs": [
-      { "number": 1, "text": "... exact source ayah text ..." }
-    ]}
-  ]
-}
-```
+## Important limitations
 
-For every surah, include `number` and an `ayahs` array. Each ayah needs its 1-based `number` and non-empty `text`. The full dataset must contain 114 surahs and 6,236 ayahs. Keep ayahs in the original order.
+- Network access is needed to fetch a surah the first time and to stream audio. Previously opened surahs may be available offline from the app cache. This is not a complete offline Quran download manager.
+- Audio is streamed, not downloaded for offline listening.
+- Bengali translation availability depends on the API edition `bn.bengali`; if that edition is unavailable, the app attempts to show Arabic text as a fallback.
+- The APK has not been built/tested in this environment because Android SDK/Gradle tooling is not installed here. Run GitHub Actions to verify the build before publishing.
+- API/CDN availability and terms can change; check the linked official documentation before public release.
 
-## After adding real data
-1. Replace `quran-ar.json` with the complete verified file.
-2. Compute its SHA-256 hash and place it in `manifest.json` at `files.quran_ar.sha256`.
-3. Commit both files.
-4. In the app, open Settings → “আরবি কুরআন ডাউনলোড / আপডেট”.
+## Build APK with GitHub Actions
 
-The app accepts an empty hash temporarily for setup, but a real SHA-256 is strongly recommended before public release.
+1. Upload the *contents* of this ZIP (not the ZIP file itself) to the root of `muhammedomor-studio/Shohoj-Quran`.
+2. Commit to `main`.
+3. Open the repository's **Actions** tab.
+4. Run **Build Shohoj Quran APK** (or wait for a push-triggered run).
+5. Download the `shohoj-quran-debug-apk` artifact from the completed workflow run.
 
-## Attribution
-See `ATTRIBUTION.txt`. Tanzil text must remain unchanged, be attributed to Tanzil, and link to https://tanzil.net/. Check the current official terms before distribution.
+Package: `com.shohojquran.app`
